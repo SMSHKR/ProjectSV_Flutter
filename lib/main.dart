@@ -18,19 +18,20 @@ class LandingScreen extends StatefulWidget {
 class _LandingScreenState extends State<LandingScreen> {
 
   File imageFile;
+  ImagePicker _picker = ImagePicker();
 
   _openGallery(BuildContext context) async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var image = await _picker.getImage(source: ImageSource.gallery);
     this.setState(() {
-      imageFile = image;
+      imageFile = File(image.path);
     });
     Navigator.of(context).pop();
   }
 
   _openCamera(BuildContext context) async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    var image = await _picker.getImage(source: ImageSource.camera);
     this.setState(() {
-      imageFile = image;
+      imageFile = File(image.path);
     });
     Navigator.of(context).pop();
   }
@@ -80,9 +81,10 @@ class _LandingScreenState extends State<LandingScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               _decideImageView(),
-              RaisedButton(onPressed: () {
-                _showChoiceDialog(context);
-              }, child: Text("Select Image"),)
+              RaisedButton(
+                onPressed: () => _showChoiceDialog(context),
+                child: Text("Select Image"),
+              )
             ],
           ),
         ),

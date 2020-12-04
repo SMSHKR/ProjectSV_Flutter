@@ -19,26 +19,23 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    modelId = null;
     return Scaffold(
-      bottomNavigationBar: modelId != null ? BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (value) {
-          setState(() {
-            _currentIndex = value;
-          });
-        },
-        items: <BottomNavigationBarItem> [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.model_training),
-            label: "Train",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.check),
-            label: "Test",
-          )
-        ],
-      ) : null,
+      bottomNavigationBar: modelId != null
+          ? BottomNavigationBar(
+              currentIndex: _currentIndex,
+              onTap: (value) { setState(() { _currentIndex = value; }); },
+              items: <BottomNavigationBarItem> [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.model_training),
+                  label: "Train",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.check),
+                  label: "Test",
+                )
+              ],
+            )
+          : null,
       body: _widgets.elementAt(_currentIndex),
     );
   }

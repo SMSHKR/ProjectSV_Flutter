@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectsv_flutter/global.dart';
 import 'package:projectsv_flutter/views/test_page.dart';
 import 'package:projectsv_flutter/views/train_page.dart';
 
@@ -18,8 +19,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    modelId = null;
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: modelId != null ? BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (value) {
           setState(() {
@@ -36,7 +38,7 @@ class _HomePageState extends State<HomePage> {
             label: "Test",
           )
         ],
-      ),
+      ) : null,
       body: _widgets.elementAt(_currentIndex),
     );
   }

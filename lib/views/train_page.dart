@@ -18,7 +18,7 @@ class _TrainPageState extends State<TrainPage> {
   }
 
   void httpTest() async {
-    String url = "http://10.0.2.2:8000/";
+    String url = serverUrl;
     var response = await http.post(url);
     Toast.show("Response Status: ${response.statusCode}", context);
   }

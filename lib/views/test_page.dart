@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:projectsv_flutter/global.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:toast/toast.dart';
+import 'package:http/http.dart' as http;
 
 class TestPage extends StatefulWidget {
   @override
@@ -26,6 +29,18 @@ class _TestPageState extends State<TestPage> {
       imageFile = File(image.path);
     });
     Navigator.of(context).pop();
+  }
+
+  _sendForTest() async {
+    if (imageFile == null) {
+      Toast.show("Please select image first", context);
+      return;
+    }
+    var request = http.MultipartRequest('POST', Uri.parse(serverUrl));
+    request.files.add(await http.MultipartFile.fromPath("myfile", imageFile.path));
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+    Toast.show("Response: " + response.body, context);
   }
 
   Future<void> _showChoiceDialog(BuildContext context) {
@@ -72,6 +87,15 @@ class _TestPageState extends State<TestPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Test Signature"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.check),
+            tooltip: "Send selected signature to train model",
+            onPressed: () => setState(() {
+              _sendForTest();
+            }),
+          )
+        ],
       ),
       body: Container(
         child: Center(

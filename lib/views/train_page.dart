@@ -1,10 +1,12 @@
-import 'dart:math';
 import 'dart:io';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:projectsv_flutter/global.dart';
 import 'package:provider/provider.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:http/http.dart' as http;
+import 'package:toast/toast.dart';
 
 class TrainPage extends StatefulWidget {
   @override
@@ -15,8 +17,19 @@ class _TrainPageState extends State<TrainPage> {
   List<File> files;
 
   _sendForTrain(Model model) async {
-    final id = Random().nextInt(9999);
-    model.setModelId(id);
+    if (files == null || files.isEmpty) {
+      Toast.show("No image selected", context);
+      return;
+    }
+    var request = http.MultipartRequest('POST', Uri.parse(serverUrl + 'train/'));
+    for (File file in files) {
+      request.files.add(await http.MultipartFile.fromPath("images", file.path));
+    }
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+    print(response.body);
+    Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+    model.setModelId(jsonResponse['model']);
   }
 
   _pickImage() async {

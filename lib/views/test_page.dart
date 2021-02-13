@@ -36,7 +36,7 @@ class _TestPageState extends State<TestPage> {
       Toast.show("Please select image first", context);
       return;
     }
-    var request = http.MultipartRequest('POST', Uri.parse(serverUrl));
+    var request = http.MultipartRequest('POST', Uri.parse(serverUrl + 'test/'));
     request.files.add(await http.MultipartFile.fromPath("myfile", imageFile.path));
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);

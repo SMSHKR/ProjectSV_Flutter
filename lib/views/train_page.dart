@@ -20,9 +20,13 @@ class _TrainPageState extends State<TrainPage> {
   }
 
   _pickImage() async {
-    FilePickerResult result = await FilePicker.platform.pickFiles(allowMultiple: true);
+    FilePickerResult result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      allowMultiple: true
+    );
     if (result != null) {
       files = result.paths.map((path) => File(path)).toList();
+      print(files.toString());
     }
   }
 

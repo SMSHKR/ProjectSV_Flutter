@@ -1,10 +1,10 @@
 import 'dart:math';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:projectsv_flutter/global.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
-import 'package:toast/toast.dart';
+import 'package:file_picker/file_picker.dart';
 
 class TrainPage extends StatefulWidget {
   @override
@@ -12,15 +12,18 @@ class TrainPage extends StatefulWidget {
 }
 
 class _TrainPageState extends State<TrainPage> {
-  void _sendForTrain(Model model) async {
+  List<File> files;
+
+  _sendForTrain(Model model) async {
     final id = Random().nextInt(9999);
     model.setModelId(id);
   }
 
-  void httpTest() async {
-    String url = serverUrl;
-    var response = await http.post(url);
-    Toast.show("Response Status: ${response.statusCode}", context);
+  _pickImage() async {
+    FilePickerResult result = await FilePicker.platform.pickFiles(allowMultiple: true);
+    if (result != null) {
+      files = result.paths.map((path) => File(path)).toList();
+    }
   }
 
   @override
@@ -43,7 +46,7 @@ class _TrainPageState extends State<TrainPage> {
         child: Text("Train Page\nModel: ${model.modelId}"),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => httpTest(),
+        onPressed: () => _pickImage(),
         tooltip: "Add Signature to Train",
         child: Icon(Icons.add),
       ),

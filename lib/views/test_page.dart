@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:projectsv_flutter/global.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
 
@@ -31,16 +32,17 @@ class _TestPageState extends State<TestPage> {
     Navigator.of(context).pop();
   }
 
-  _sendForTest() async {
+  _sendForTest(String model) async {
     if (imageFile == null) {
       Toast.show("Please select image first", context);
       return;
     }
     var request = http.MultipartRequest('POST', Uri.parse(serverUrl + 'test/'));
-    request.files.add(await http.MultipartFile.fromPath("myfile", imageFile.path));
+    request.fields["model"] = model;
+    request.files.add(await http.MultipartFile.fromPath("image", imageFile.path));
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
-    Toast.show("Response: " + response.body, context);
+    print("Response: " + response.body);
   }
 
   Future<void> _showChoiceDialog(BuildContext context) {
@@ -84,6 +86,7 @@ class _TestPageState extends State<TestPage> {
 
   @override
   Widget build(BuildContext context) {
+    final model = Provider.of<Model>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Test Signature"),
@@ -92,7 +95,7 @@ class _TestPageState extends State<TestPage> {
             icon: Icon(Icons.check),
             tooltip: "Send selected signature to train model",
             onPressed: () => setState(() {
-              _sendForTest();
+              _sendForTest(model.modelId);
             }),
           )
         ],

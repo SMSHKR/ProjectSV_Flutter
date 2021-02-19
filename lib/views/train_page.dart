@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
+import 'package:uuid/uuid.dart';
 
 class TrainPage extends StatefulWidget {
   @override
@@ -22,6 +23,8 @@ class _TrainPageState extends State<TrainPage> {
       return;
     }
     var request = http.MultipartRequest('POST', Uri.parse(serverUrl + 'train/'));
+    request.fields["old_model"] = model.modelId ?? "0";
+    request.fields["model"] = Uuid().v1();
     for (File file in files) {
       request.files.add(await http.MultipartFile.fromPath("images", file.path));
     }

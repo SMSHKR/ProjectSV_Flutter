@@ -44,7 +44,7 @@ class _TestPageState extends State<TestPage> {
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
     print("Response: " + response.body);
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(response: response)));
   }
 
   Future<void> _showChoiceDialog(BuildContext context) {

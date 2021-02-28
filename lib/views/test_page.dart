@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:projectsv_flutter/global.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:projectsv_flutter/views/result_page.dart';
 import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
@@ -43,6 +44,7 @@ class _TestPageState extends State<TestPage> {
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
     print("Response: " + response.body);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage()));
   }
 
   Future<void> _showChoiceDialog(BuildContext context) {

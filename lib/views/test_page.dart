@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:projectsv_flutter/global.dart';
@@ -43,8 +44,8 @@ class _TestPageState extends State<TestPage> {
     request.files.add(await http.MultipartFile.fromPath("image", imageFile.path));
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
-    print("Response: " + response.body);
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(response: response)));
+    // print("Response: " + response.body);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(response: jsonDecode(response.body))));
   }
 
   Future<void> _showChoiceDialog(BuildContext context) {

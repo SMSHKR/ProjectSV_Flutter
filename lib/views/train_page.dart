@@ -30,7 +30,7 @@ class _TrainPageState extends State<TrainPage> {
     }
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
-    print(response.body);
+    // print(response.body);
     Map<String, dynamic> jsonResponse = jsonDecode(response.body);
     model.setModelId(jsonResponse['model']);
   }

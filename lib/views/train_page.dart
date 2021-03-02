@@ -33,6 +33,7 @@ class _TrainPageState extends State<TrainPage> {
     // print(response.body);
     Map<String, dynamic> jsonResponse = jsonDecode(response.body);
     model.setModelId(jsonResponse['model']);
+    Toast.show("Train Succeed", context);
   }
 
   _pickImage() async {

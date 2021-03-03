@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Model with ChangeNotifier {
   String modelId;
+  int currentIndex = 0;
 
   Model() {
     SharedPreferences.getInstance().then((value) => setModelId(value.getString("modelId")));
@@ -12,6 +13,7 @@ class Model with ChangeNotifier {
     modelId = id;
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("modelId", modelId);
+    currentIndex = (modelId != null) ? 1 : 0;
     notifyListeners();
   }
 }

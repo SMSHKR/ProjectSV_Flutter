@@ -10,7 +10,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0;
 
   List<Widget> _widgets = <Widget>[
     TrainPage(),
@@ -22,12 +21,13 @@ class _HomePageState extends State<HomePage> {
     return ChangeNotifierProvider<Model>(
         create: (_) => Model(),
         builder: (context, widget) {
+          Model model = context.watch<Model>();
           return Scaffold(
-            bottomNavigationBar: context.watch<Model>().modelId != null
+            bottomNavigationBar: model.modelId != null
                 ? BottomNavigationBar(
-                    currentIndex: _currentIndex,
+                    currentIndex: model.currentIndex,
                     onTap: (value) => setState(() {
-                      _currentIndex = value;
+                      model.currentIndex = value;
                     }),
                     items: <BottomNavigationBarItem>[
                       BottomNavigationBarItem(
@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   )
                 : null,
-            body: _widgets.elementAt(_currentIndex),
+            body: _widgets.elementAt(model.currentIndex),
           );
         });
   }

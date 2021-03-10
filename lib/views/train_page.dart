@@ -57,11 +57,29 @@ class _TrainPageState extends State<TrainPage> {
     return ListView.builder(
         itemCount: files.length,
         itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              leading: Icon(Icons.image),
-              title: Text(files[index].path.split('/').last),
+          return Dismissible(
+            background: Container(
+              color: Colors.red,
+              alignment: Alignment(0.9, 0),
+              child: Icon(
+                Icons.delete,
+                color: Colors.white,
+              ),
             ),
+            direction: DismissDirection.endToStart,
+            key: UniqueKey(),
+            onDismissed: (direction) {
+              setState(() {
+                files.removeAt(index);
+              });
+            },
+            child: Card(
+                child: ListTile(
+                  leading: Icon(Icons.image),
+                  title: Text(files[index].path.split('/').last),
+                  trailing: Icon(Icons.arrow_back),
+                ),
+              ),
           );
         }
     );

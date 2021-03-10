@@ -43,7 +43,8 @@ class _TrainPageState extends State<TrainPage> {
     );
     if (result != null) {
       setState(() {
-        files = result.paths.map((path) => File(path)).toList();
+        List<File> filesResult = result.paths.map((path) => File(path)).toList();
+        filesResult.forEach((file) => files.add(file));
       });
       // print(files.toString());
     }

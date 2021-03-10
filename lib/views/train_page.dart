@@ -78,6 +78,16 @@ class _TrainPageState extends State<TrainPage> {
                   leading: Icon(Icons.image),
                   title: Text(files[index].path.split('/').last),
                   trailing: Icon(Icons.arrow_back),
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content: Image.file(files[index]),
+                        );
+                      }
+                    );
+                  },
                 ),
               ),
           );

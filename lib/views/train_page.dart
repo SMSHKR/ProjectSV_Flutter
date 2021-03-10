@@ -15,7 +15,7 @@ class TrainPage extends StatefulWidget {
 }
 
 class _TrainPageState extends State<TrainPage> {
-  List<File> files;
+  List<File> files = List();
 
   _sendForTrain(Model model) async {
     if (files == null || files.isEmpty) {
@@ -42,9 +42,28 @@ class _TrainPageState extends State<TrainPage> {
       allowMultiple: true
     );
     if (result != null) {
-      files = result.paths.map((path) => File(path)).toList();
+      setState(() {
+        files = result.paths.map((path) => File(path)).toList();
+      });
       // print(files.toString());
     }
+  }
+
+  Widget _decideListView() {
+    if (files.isEmpty) {
+      return Text("Please tap + at bottom right to select images.");
+    }
+    return ListView.builder(
+        itemCount: files.length,
+        itemBuilder: (context, index) {
+          return Card(
+            child: ListTile(
+              leading: Icon(Icons.image),
+              title: Text(files[index].path.split('/').last),
+            ),
+          );
+        }
+    );
   }
 
   @override
@@ -64,7 +83,7 @@ class _TrainPageState extends State<TrainPage> {
         ],
       ),
       body: Center(
-        child: Text("Train Page\nModel: ${model.modelId}"),
+        child: _decideListView(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _pickImage(),

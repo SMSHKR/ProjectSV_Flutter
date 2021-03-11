@@ -75,7 +75,7 @@ class _TrainPageState extends State<TrainPage> {
             },
             child: Card(
                 child: ListTile(
-                  leading: Image.file(files[index]),
+                  leading: Image.file(files[index], width: 60,),
                   title: Text(files[index].path.split('/').last),
                   trailing: Icon(Icons.arrow_back),
                   onTap: () {

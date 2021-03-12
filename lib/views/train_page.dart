@@ -15,7 +15,7 @@ class TrainPage extends StatefulWidget {
 }
 
 class _TrainPageState extends State<TrainPage> {
-  List<File> files = List();
+  List<File> files = [];
 
   _sendForTrain(Model model) async {
     if (files == null || files.isEmpty) {

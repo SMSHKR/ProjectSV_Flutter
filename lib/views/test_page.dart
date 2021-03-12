@@ -115,7 +115,7 @@ class _TestPageState extends State<TestPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               _decideImageView(),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () => _showChoiceDialog(context),
                 child: Text("Select Image"),
               )

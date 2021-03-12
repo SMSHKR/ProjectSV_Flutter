@@ -28,12 +28,18 @@ class _TrainPageState extends State<TrainPage> {
     for (File file in files) {
       request.files.add(await http.MultipartFile.fromPath("images", file.path));
     }
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
-    // print(response.body);
-    Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-    model.setModelId(jsonResponse['model']);
-    Toast.show("Train Succeed", context);
+    try {
+      var streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
+      if (response.statusCode != 200)
+        throw Exception;
+      // print(response.body);
+      Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      model.setModelId(jsonResponse['model']);
+      Toast.show("Train Succeed", context);
+    } catch (_) {
+      Toast.show("Error occurred, please try again", context);
+    }
   }
 
   _pickImage() async {

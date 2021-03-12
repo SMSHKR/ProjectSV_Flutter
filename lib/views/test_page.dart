@@ -42,10 +42,16 @@ class _TestPageState extends State<TestPage> {
     var request = http.MultipartRequest('POST', Uri.parse(serverUrl + 'test/'));
     request.fields["model"] = model;
     request.files.add(await http.MultipartFile.fromPath("image", imageFile.path));
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
-    // print("Response: " + response.body);
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(response: jsonDecode(response.body))));
+    try {
+      var streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
+      if (response.statusCode != 200)
+        throw Exception;
+      // print("Response: " + response.body);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(response: jsonDecode(response.body))));
+    } catch (_) {
+      Toast.show("Error occurred, if this keep happening try re-train model", context);
+    }
   }
 
   Future<void> _showChoiceDialog(BuildContext context) {

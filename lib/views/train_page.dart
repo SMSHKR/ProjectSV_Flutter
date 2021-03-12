@@ -49,8 +49,14 @@ class _TrainPageState extends State<TrainPage> {
     );
     if (result != null) {
       setState(() {
-        List<File> filesResult = result.paths.map((path) => File(path)).toList();
-        files.addAll(filesResult);
+        Set<String> filesResult = result.paths.map((path) => path).toSet();
+        files.forEach((element) {
+          filesResult.add(element.path);
+        });
+        files.clear();
+        filesResult.forEach((element) {
+          files.add(File(element));
+        });
       });
       // print(files.toString());
     }

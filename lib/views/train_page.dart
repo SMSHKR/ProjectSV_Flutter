@@ -36,6 +36,8 @@ class _TrainPageState extends State<TrainPage> {
       // print(response.body);
       Map<String, dynamic> jsonResponse = jsonDecode(response.body);
       model.setModelId(jsonResponse['model']);
+      FilePicker.platform.clearTemporaryFiles();
+      imageCache.clear();
       Toast.show("Train Succeed", context);
     } catch (_) {
       Toast.show("Error occurred, please try again", context);
@@ -82,7 +84,9 @@ class _TrainPageState extends State<TrainPage> {
             key: UniqueKey(),
             onDismissed: (direction) {
               setState(() {
+                files[index].delete();
                 files.removeAt(index);
+                imageCache.clear();
               });
             },
             child: Card(

@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:projectsv_flutter/global.dart';
 import 'package:projectsv_flutter/views/test_page.dart';
@@ -27,6 +28,8 @@ class _HomePageState extends State<HomePage> {
                 ? BottomNavigationBar(
                     currentIndex: model.currentIndex,
                     onTap: (value) => setState(() {
+                      FilePicker.platform.clearTemporaryFiles();
+                      imageCache.clear();
                       model.currentIndex = value;
                     }),
                     items: <BottomNavigationBarItem>[

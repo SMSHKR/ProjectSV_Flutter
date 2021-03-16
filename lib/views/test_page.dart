@@ -20,17 +20,25 @@ class _TestPageState extends State<TestPage> {
 
   _openGallery(BuildContext context) async {
     var image = await _picker.getImage(source: ImageSource.gallery);
-    this.setState(() {
-      imageFile = File(image.path);
-    });
+    if (image != null) {
+      this.setState(() {
+        if (imageFile != null)
+          imageFile.delete();
+        imageFile = File(image.path);
+      });
+    }
     Navigator.of(context).pop();
   }
 
   _openCamera(BuildContext context) async {
     var image = await _picker.getImage(source: ImageSource.camera);
-    this.setState(() {
-      imageFile = File(image.path);
-    });
+    if (image != null) {
+      this.setState(() {
+        if (imageFile != null)
+          imageFile.delete();
+        imageFile = File(image.path);
+      });
+    }
     Navigator.of(context).pop();
   }
 

@@ -25,8 +25,8 @@ class _TrainLoadingPageState extends State<TrainLoadingPage> {
   _TrainLoadingPageState({@required this.request, @required this.model});
 
   Future<Response> _streamResponse() async {
-    final streamedResponse = await request.send().timeout(Duration(seconds: timeoutDuration));
-    return Response.fromStream(streamedResponse).timeout(Duration(seconds: timeoutDuration));
+    final streamedResponse = await request.send().timeout(Duration(seconds: trainTimeoutDuration));
+    return Response.fromStream(streamedResponse).timeout(Duration(seconds: trainTimeoutDuration));
   }
 
   @override

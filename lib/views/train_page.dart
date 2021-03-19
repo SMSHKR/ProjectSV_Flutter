@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:projectsv_flutter/global.dart';
+import 'package:projectsv_flutter/views/train_loading_page.dart';
 import 'package:provider/provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
@@ -29,13 +29,8 @@ class _TrainPageState extends State<TrainPage> {
       request.files.add(await http.MultipartFile.fromPath("images", file.path));
     }
     try {
-      var streamedResponse = await request.send();
-      var response = await http.Response.fromStream(streamedResponse);
-      if (response.statusCode != 200)
-        throw Exception;
-      // print(response.body);
-      Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      model.setModelId(jsonResponse['model']);
+      bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) => TrainLoadingPage(request: request, model: model,)));
+      if (!result) throw Exception();
       FilePicker.platform.clearTemporaryFiles();
       imageCache.clear();
       Toast.show("Train Succeed", context);

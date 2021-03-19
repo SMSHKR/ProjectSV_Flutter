@@ -56,8 +56,11 @@ class _TestPageState extends State<TestPage> {
       if (response.statusCode != 200)
         throw Exception;
       // print("Response: " + response.body);
-      imageFile.delete();
-      imageCache.clear();
+      setState(() {
+        imageFile.delete();
+        imageFile = null;
+        imageCache.clear();
+      });
       Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(response: jsonDecode(response.body))));
     } catch (_) {
       Toast.show("Error occurred, if this keep happening try re-train model", context);

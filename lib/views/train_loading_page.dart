@@ -29,22 +29,6 @@ class _TrainLoadingPageState extends State<TrainLoadingPage> {
     return Response.fromStream(streamedResponse).timeout(Duration(seconds: timeoutDuration));
   }
 
-  Widget _progressIndicator() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(
-            child: CircularProgressIndicator(),
-            width: 60.0,
-            height: 60.0,
-          )
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -69,7 +53,19 @@ class _TrainLoadingPageState extends State<TrainLoadingPage> {
                     Navigator.pop(context, false);
                   });
                 }
-                return _progressIndicator();
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        child: CircularProgressIndicator(),
+                        width: 60.0,
+                        height: 60.0,
+                      )
+                    ],
+                  ),
+                );
               }
           )
       ),

@@ -95,7 +95,10 @@ class _TestPageState extends State<TestPage> {
         height: 400,
       );
     else
-      return Text("No Image Selected");
+      return Icon(
+        Icons.image_not_supported_outlined,
+        size: 200,
+      );
   }
 
   @override

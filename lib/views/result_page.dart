@@ -43,7 +43,7 @@ class _ResultPageState extends State<ResultPage> {
               if (response.statusCode != 200)
                 SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
                   Navigator.pop(context);
-                  Toast.show("Error occurred, if this keep happening try re-train model", context);
+                  Toast.show("Error occurred, if this keep happening try re-train model", context, duration: 3);
                 });
               else {
                 Map<String, dynamic> jsonResponse = jsonDecode(response.body);
@@ -93,7 +93,7 @@ class _ResultPageState extends State<ResultPage> {
               print(snapshot.error);
               SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
                 Navigator.pop(context);
-                Toast.show("Error occurred, if this keep happening try re-train model", context);
+                Toast.show("Error occurred, if this keep happening try re-train model", context, duration: 3);
               });
             }
             return Center(

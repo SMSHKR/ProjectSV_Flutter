@@ -35,7 +35,7 @@ class _TrainPageState extends State<TrainPage> {
       imageCache.clear();
       Toast.show("Train Succeed", context);
     } catch (_) {
-      Toast.show("Error occurred, please try again", context);
+      Toast.show("Error occurred, please try again", context, duration: 3);
     }
   }
 

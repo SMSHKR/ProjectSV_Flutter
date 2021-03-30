@@ -98,6 +98,7 @@ class _TestPageState extends State<TestPage> {
       return Icon(
         Icons.image_not_supported_outlined,
         size: 200,
+        color: Colors.grey[350],
       );
   }
 

@@ -10,6 +10,7 @@ class Model with ChangeNotifier {
   }
 
   setModelId(String id) async {
+    if (id == null) return;
     modelId = id;
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("modelId", modelId);

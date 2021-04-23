@@ -20,5 +20,5 @@ class Model with ChangeNotifier {
 }
 
 String serverUrl = "http://10.0.2.2:8000/";
-int trainTimeoutDuration = 5;
+int trainTimeoutDuration = 60;
 int testTimeoutDuration = 3;

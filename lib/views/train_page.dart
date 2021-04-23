@@ -18,8 +18,8 @@ class _TrainPageState extends State<TrainPage> {
   List<File> files = [];
 
   _sendForTrain(Model model) async {
-    if (files == null || files.length < 8) {
-      Toast.show("Please choose 8 or more images", context);
+    if (files == null || files.length < 3) {
+      Toast.show("Please choose 3 or more images", context);
       return;
     }
     var request = http.MultipartRequest('POST', Uri.parse(serverUrl + 'train/'));

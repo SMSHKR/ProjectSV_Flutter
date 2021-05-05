@@ -63,7 +63,18 @@ class _ResultPageState extends State<ResultPage> {
                           size: 160,
                         ),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(30, 180, 0, 0),
+                          padding: const EdgeInsets.all(15),
+                          child: Text(
+                            jsonResponse['vote'] ? "Genuine" : "Fake",
+                            style: TextStyle(
+                                color: jsonResponse['vote'] ? Colors.green : Colors.red,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 40
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 180, 0, 15),
                           child: LinearPercentIndicator(
                             width: MediaQuery
                                 .of(context)
@@ -83,6 +94,14 @@ class _ResultPageState extends State<ResultPage> {
                             percent: jsonResponse['fake_ratio'],
                             backgroundColor: Colors.green,
                             progressColor: Colors.red,
+                          ),
+                        ),
+                        Text(
+                          "Genuine: " + ((1 - jsonResponse['fake_ratio']) * 100).toStringAsFixed(2) + "%",
+                          style: TextStyle(
+                              color: jsonResponse['vote'] ? Colors.green : Colors.red,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20
                           ),
                         )
                       ],
